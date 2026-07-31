@@ -4,14 +4,12 @@ import com.stoopad.velocitywhitelist.listener.BotCommandListener;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
-import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier;
 import org.slf4j.Logger;
 
 import javax.inject.Inject;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
 
 @Plugin(
         id = "huhostdwhitelist",
@@ -26,15 +24,13 @@ public class VelocityWhitelistPlugin {
 
     private final ProxyServer server;
     private final Logger logger;
-    private final Path dataDirectory;
 
     private MinecraftChannelIdentifier channel;
 
     @Inject
-    public VelocityWhitelistPlugin(ProxyServer server, Logger logger, @DataDirectory Path dataDirectory) {
+    public VelocityWhitelistPlugin(ProxyServer server, Logger logger) {
         this.server = server;
         this.logger = logger;
-        this.dataDirectory = dataDirectory;
     }
 
     @Subscribe
@@ -65,5 +61,4 @@ public class VelocityWhitelistPlugin {
 
     public ProxyServer getServer() { return server; }
     public Logger getLogger() { return logger; }
-    public Path getDataDirectory() { return dataDirectory; }
 }
