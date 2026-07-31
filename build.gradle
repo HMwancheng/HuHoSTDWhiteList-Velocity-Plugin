@@ -31,4 +31,5 @@ tasks.withType(JavaCompile) {
 
 jar {
     archiveFileName = 'HuHoSTDWhiteList-Velocity.jar'
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
