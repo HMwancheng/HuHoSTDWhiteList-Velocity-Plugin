@@ -1,0 +1,13 @@
+{
+    "id": "huhostdwhitelist",
+    "name": "HuHoSTDWhiteList-Velocity",
+    "version": "1.0.0",
+    "authors": ["stoopad"],
+    "main": "com.stoopad.velocitywhitelist.VelocityWhitelistPlugin",
+    "dependencies": [
+        {
+            "id": "huhobot",
+            "optional": false
+        }
+    ]
+}
