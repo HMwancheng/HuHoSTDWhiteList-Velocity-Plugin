@@ -23,6 +23,13 @@ jobs:
       - name: Resolve dependencies
         run: gradle dependencies --no-daemon -q
 
+      - name: Debug Velocity API packages
+        run: |
+          VELOCITY_JAR=$(find ~/.gradle -path "*/velocity-api-3.3.0*.jar" ! -name "*-sources*" ! -name "*-javadoc*" | head -1)
+          echo "Velocity API jar: $VELOCITY_JAR"
+          jar tf "$VELOCITY_JAR" | grep "messaging" || echo "NO messaging package found"
+          jar tf "$VELOCITY_JAR" | grep "ChannelRegistrar\|ChannelIdentifier" || echo "NO ChannelIdentifier found"
+
       - name: Build HuHoBot stub
         run: |
           curl -sL -o fastjson2.jar https://repo1.maven.org/maven2/com/alibaba/fastjson2/fastjson2/2.0.53/fastjson2-2.0.53.jar
