@@ -25,10 +25,13 @@ jobs:
 
       - name: Debug Velocity API packages
         run: |
-          VELOCITY_JAR=$(find ~/.gradle -path "*/velocity-api-3.3.0*.jar" ! -name "*-sources*" ! -name "*-javadoc*" | head -1)
-          echo "Velocity API jar: $VELOCITY_JAR"
-          jar tf "$VELOCITY_JAR" | grep "messaging" || echo "NO messaging package found"
-          jar tf "$VELOCITY_JAR" | grep "ChannelRegistrar\|ChannelIdentifier" || echo "NO ChannelIdentifier found"
+          VELOCITY_JAR=$(find ~/.gradle -name "velocity-api-*.jar" ! -name "*-sources*" ! -name "*-javadoc*" 2>/dev/null | head -3)
+          echo "Found jars:"
+          echo "$VELOCITY_JAR"
+          for jar in $VELOCITY_JAR; do
+            echo "=== Contents of $jar ==="
+            jar tf "$jar" | grep -i "messaging\|ChannelRegistrar\|ChannelIdentifier" || echo "  (no messaging classes)"
+          done
 
       - name: Build HuHoBot stub
         run: |
