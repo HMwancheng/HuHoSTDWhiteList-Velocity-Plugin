@@ -18,7 +18,7 @@ import java.nio.charset.StandardCharsets;
         version = "1.0.0",
         authors = {"stoopad"},
         dependencies = {
-                @Dependency(id = "huhobot", optional = false)
+                @Dependency(id = "huhobot", optional = true)
         }
 )
 public class VelocityWhitelistPlugin {
@@ -41,7 +41,12 @@ public class VelocityWhitelistPlugin {
     public void onProxyInitialize(ProxyInitializeEvent event) {
         channel = MinecraftChannelIdentifier.create(CHANNEL_NAMESPACE, CHANNEL_NAME);
         server.getChannelRegistrar().register(channel);
-        server.getEventManager().register(this, new BotCommandListener(this));
+        try {
+            server.getEventManager().register(this, new BotCommandListener(this));
+            logger.info("HuHoBot listener registered");
+        } catch (NoClassDefFoundError e) {
+            logger.warn("HuHoBot not found, bot command listener disabled");
+        }
         logger.info("HuHoSTDWhiteList-Velocity loaded  channel={}:{}", CHANNEL_NAMESPACE, CHANNEL_NAME);
     }
 
